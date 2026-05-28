@@ -38,7 +38,6 @@ model User {
   refreshTokens RefreshToken[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
-
   @@map("users")
 }
 
@@ -62,11 +61,9 @@ model Post {
   publishedAt DateTime?
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
-
   @@index([slug])
   @@index([status])
   @@index([authorId])
-  @@index([categoryId])
   @@map("posts")
 }
 
@@ -79,7 +76,6 @@ model Category {
   posts       Post[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
   @@map("categories")
 }
 
@@ -89,7 +85,6 @@ model Tag {
   slug      String    @unique
   posts     PostTag[]
   createdAt DateTime  @default(now())
-
   @@map("tags")
 }
 
@@ -99,7 +94,6 @@ model PostTag {
   tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
   tagId     String
   createdAt DateTime @default(now())
-
   @@id([postId, tagId])
   @@map("post_tags")
 }
@@ -110,7 +104,6 @@ model PostView {
   postId    String
   visitorId String
   createdAt DateTime @default(now())
-
   @@unique([postId, visitorId])
   @@index([postId])
   @@map("post_views")
@@ -131,7 +124,6 @@ model Comment {
   status     CommentStatus @default(PENDING)
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
-
   @@index([postId])
   @@map("comments")
 }
@@ -144,7 +136,6 @@ model RefreshToken {
   expiresAt DateTime
   revokedAt DateTime?
   createdAt DateTime  @default(now())
-
   @@index([userId])
   @@map("refresh_tokens")
 }
